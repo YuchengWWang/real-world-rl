@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+# -*-coding:utf8-*-
+# 注意demo无法直接运行，需要pip安装sdk后才能运行
+# 设置机械臂重置，需要在mit或者示教模式切换为位置速度控制模式时执行
+# 使用后需要reset，并重新使能两次
+from piper_sdk import *
+
+# 测试代码
+if __name__ == "__main__":
+    piper1 = C_PiperInterface_V2("can_right")
+    piper1.ConnectPort()
+    piper1.MotionCtrl_1(0x01,0,0)
+
+    piper2 = C_PiperInterface_V2("can_left")
+    piper2.ConnectPort()
+    piper2.MotionCtrl_1(0x01,0,0)
+    

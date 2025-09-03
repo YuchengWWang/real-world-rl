@@ -38,7 +38,7 @@ DEFAULT_CAN_PORTS = {
 
 DEFAULT_PIPER_MANIPULATOR_CONFIG = {
     "right_arm": {  # Using "right_arm" for consistency with base controller
-        "link_name": "gripper_base",  # URDF link name for the end-effector
+        "link_name": "eeflink",  # URDF link name for the end-effector
         "pose_source": "right_controller",
         "control_trigger": "right_grip",
         "gripper_config": {
@@ -78,14 +78,12 @@ DEFAULT_DUAL_PIPER_MANIPULATOR_CONFIG = {
     },
 }
 
-url = "http://100.72.16.108:5001/"
-
 
 class PiperTeleopController(HardwareTeleopController):
     def __init__(
         self,
-        robot_urdf_path: str = DEFAULT_PIPER_URDF_PATH,
-        manipulator_config: dict = DEFAULT_PIPER_MANIPULATOR_CONFIG,
+        robot_urdf_path: str = DEFAULT_DUAL_PIPER_URDF_PATH,
+        manipulator_config: dict = DEFAULT_DUAL_PIPER_MANIPULATOR_CONFIG,
         can_ports: Dict[str, str] = DEFAULT_CAN_PORTS,
         R_headset_world: np.ndarray = R_HEADSET_TO_WORLD,
         scale_factor: float = DEFAULT_SCALE_FACTOR,

@@ -8,9 +8,6 @@ from xrobotoolkit_teleop.common.base_hardware_teleop_controller import (
 )
 
 from xrobotoolkit_teleop.utils.geometry import R_HEADSET_TO_WORLD
-from xrobotoolkit_teleop.utils.path_utils import ASSET_PATH
-
-url = "http://100.72.16.108:5001/"
 
 
 class XRPublisher(HardwareTeleopController):

@@ -7,9 +7,10 @@ from typing import Tuple, List
 from scipy.spatial.transform import Rotation as R
 import pinocchio as pin
 from pinocchio.robot_wrapper import RobotWrapper
-# import sys
-# sys.path.append("../../")
-from piper_sdk.piper_sdk import *
+import sys, os
+root = os.path.abspath(os.path.join(__file__, "..", "..", "piper_sdk"))
+sys.path.append(root)
+from piper_sdk import *
 
 
 FLAGS = flags.FLAGS
@@ -17,9 +18,17 @@ flags.DEFINE_string("flask_url",
     "100.72.16.108",
     "URL for the flask server to run on."
 )
+flags.DEFINE_int("port", 
+    "5001",
+    ""
+)
+flags.DEFINE_string("can_name", 
+    "can_right",
+    ""
+)
 
 
-urdf_path = "../../piper_sdk/urdf/piper_description_d405.urdf"
+urdf_path = "piper_sdk/urdf/piper_description_d405.urdf"
 k1 = 4.
 k2 = 0.87
 
@@ -29,7 +38,7 @@ class DynamicModel:
         self.robot = RobotWrapper.BuildFromURDF(urdf_path, package_dirs=package_dirs)
         self.model, self.data = self.robot.model, self.robot.data
         self.base_frame_id = self.robot.model.getFrameId("base_link")
-        self.ee_frame_id = self.robot.model.getFrameId("link9") 
+        self.ee_frame_id = self.robot.model.getFrameId("eeflink") 
         # print(self.model)
     
     def get_J_C_g_T_e(self, q, dq, pose_desire):
@@ -305,7 +314,7 @@ class piper_server:
 
 def main(_):
     webapp = Flask(__name__)
-    piper = C_PiperInterface(can_name="can_right",
+    piper = C_PiperInterface(can_name=FLAGS.can_name,
                                 judge_flag=False,
                                 can_auto_init=True,
                                 dh_is_offset=1,
@@ -420,7 +429,7 @@ def main(_):
         return jsonify({"p_ref_init":robot_server.p_ref_init.tolist()}) # 6D pose list
     
 
-    webapp.run(host=FLAGS.flask_url, port=5001)
+    webapp.run(host=FLAGS.flask_url, port=FLAGS.port)
 
 
 if __name__ == "__main__":
