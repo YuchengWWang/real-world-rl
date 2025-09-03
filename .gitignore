@@ -64,8 +64,9 @@ XRoboToolkit-Teleop-Sample-Python/!data/.gitkeep
 XRoboToolkit-Teleop-Sample-Python/.env
 XRoboToolkit-Teleop-Sample-Python/.venv
 XRoboToolkit-Teleop-Sample-Python/third_party/
-XRoboToolkit-Teleop-Sample-Python/dependencies/serl_launcher/*.egg-info
+XRoboToolkit-Teleop-Sample-Python/dependencies/
 
+serl_launcher/*.egg-info
 serl_launcher/build
 serl_launcher/__pycache__
 serl_launcher/*.py[cod]
