@@ -1,0 +1,88 @@
+# XRoboToolkit-Teleop-Sample-Python/# Python
+XRoboToolkit-Teleop-Sample-Python/__pycache__/
+XRoboToolkit-Teleop-Sample-Python/*.py[cod]
+XRoboToolkit-Teleop-Sample-Python/*$py.class
+XRoboToolkit-Teleop-Sample-Python/*.so
+XRoboToolkit-Teleop-Sample-Python/.Python
+XRoboToolkit-Teleop-Sample-Python/env/
+XRoboToolkit-Teleop-Sample-Python/venv/
+XRoboToolkit-Teleop-Sample-Python/ENV/
+XRoboToolkit-Teleop-Sample-Python/.env
+XRoboToolkit-Teleop-Sample-Python/build/
+XRoboToolkit-Teleop-Sample-Python/develop-eggs/
+XRoboToolkit-Teleop-Sample-Python/dist/
+XRoboToolkit-Teleop-Sample-Python/downloads/
+XRoboToolkit-Teleop-Sample-Python/eggs/
+XRoboToolkit-Teleop-Sample-Python/.eggs/
+XRoboToolkit-Teleop-Sample-Python/lib/
+XRoboToolkit-Teleop-Sample-Python/lib64/
+XRoboToolkit-Teleop-Sample-Python/parts/
+XRoboToolkit-Teleop-Sample-Python/sdist/
+XRoboToolkit-Teleop-Sample-Python/var/
+XRoboToolkit-Teleop-Sample-Python/wheels/
+XRoboToolkit-Teleop-Sample-Python/*.egg-info/
+XRoboToolkit-Teleop-Sample-Python/.installed.cfg
+XRoboToolkit-Teleop-Sample-Python/*.egg
+# XRoboToolkit-Teleop-Sample-Python/# MuJoCo specific
+XRoboToolkit-Teleop-Sample-Python/*.mjb
+XRoboToolkit-Teleop-Sample-Python/MUJOCO_LOG.TXT
+XRoboToolkit-Teleop-Sample-Python/mjkey.txt
+XRoboToolkit-Teleop-Sample-Python/.mujoco/
+XRoboToolkit-Teleop-Sample-Python/sim_data/
+# XRoboToolkit-Teleop-Sample-Python/# IDE
+XRoboToolkit-Teleop-Sample-Python/.idea/
+XRoboToolkit-Teleop-Sample-Python/.vscode/
+XRoboToolkit-Teleop-Sample-Python/*.swp
+XRoboToolkit-Teleop-Sample-Python/*.swo
+XRoboToolkit-Teleop-Sample-Python/*~
+# XRoboToolkit-Teleop-Sample-Python/# OS generated files
+XRoboToolkit-Teleop-Sample-Python/.DS_Store
+XRoboToolkit-Teleop-Sample-Python/.DS_Store?
+XRoboToolkit-Teleop-Sample-Python/._*
+XRoboToolkit-Teleop-Sample-Python/.Spotlight-V100
+XRoboToolkit-Teleop-Sample-Python/.Trashes
+XRoboToolkit-Teleop-Sample-Python/ehthumbs.db
+XRoboToolkit-Teleop-Sample-Python/Thumbs.db
+# XRoboToolkit-Teleop-Sample-Python/# Jupyter Notebooks
+XRoboToolkit-Teleop-Sample-Python/.ipynb_checkpoints
+XRoboToolkit-Teleop-Sample-Python/# Logs
+XRoboToolkit-Teleop-Sample-Python/*.log
+XRoboToolkit-Teleop-Sample-Python/logs/
+XRoboToolkit-Teleop-Sample-Python/tensorboard_logs/
+# XRoboToolkit-Teleop-Sample-Python/# Test cache
+XRoboToolkit-Teleop-Sample-Python/.pytest_cache/
+XRoboToolkit-Teleop-Sample-Python/.coverage
+XRoboToolkit-Teleop-Sample-Python/htmlcov/
+# XRoboToolkit-Teleop-Sample-Python/# Data files
+XRoboToolkit-Teleop-Sample-Python/*.pkl
+XRoboToolkit-Teleop-Sample-Python/*.npy
+XRoboToolkit-Teleop-Sample-Python/*.npz
+XRoboToolkit-Teleop-Sample-Python/*.csv
+XRoboToolkit-Teleop-Sample-Python/data/
+XRoboToolkit-Teleop-Sample-Python/!data/.gitkeep
+# XRoboToolkit-Teleop-Sample-Python/# Environment
+XRoboToolkit-Teleop-Sample-Python/.env
+XRoboToolkit-Teleop-Sample-Python/.venv
+XRoboToolkit-Teleop-Sample-Python/third_party/
+XRoboToolkit-Teleop-Sample-Python/dependencies/serl_launcher/*.egg-info
+
+serl_launcher/build
+serl_launcher/__pycache__
+serl_launcher/*.py[cod]
+serl_launcher/*.so
+serl_launcher/*.pyc
+serl_launcher/wandb/
+
+piper_sdk/.VSCodeCounter
+piper_sdk/.vscode
+piper_sdk/*.log
+piper_sdk/__pycache__
+piper_sdk/*.7z
+piper_sdk/*.zip
+piper_sdk/*.tar
+piper_sdk/piper_sdk.egg-info
+piper_sdk/dist
+piper_sdk/build
+
+
+/.vscode

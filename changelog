@@ -1,0 +1,11 @@
+9.1
+piper_server：
+1. 把笛卡尔阻抗控制整合入server内部，/MITmove请求直接接收pose_desire
+2. /getstate按hilserl要求返回q, dq, J, pose, vel, gripper_pos
+3. /get_compensate返回当前重力补偿所需
+4. /get_pico_action返回当前pico的delta action、gripper_pos和activate_button值，为一词典
+
+XRoboToolkit:
+script下新增xr_pub.py脚本，运行的controller是xr_publisher.py，然后在base_hardware_teleop_controller.py脚本，运行的controller是xr_publisher
+和base_teleop_controller.py中添加_is_xr_pub和_is_xr_exe变量，前者运行_pub_pos_thread不解ik也不send command，后者运行_exe_thread+send_command_thread
+最后在interface/piper.py下加对server的getcompensate的请求以实现重力补偿下的PD控制
