@@ -36,6 +36,7 @@ DEFAULT_CAN_PORTS = {
     "right_arm": "can_right",
 }
 
+
 DEFAULT_PIPER_MANIPULATOR_CONFIG = {
     "right_arm": {  # Using "right_arm" for consistency with base controller
         "link_name": "eeflink",  # URDF link name for the end-effector
@@ -77,6 +78,9 @@ DEFAULT_DUAL_PIPER_MANIPULATOR_CONFIG = {
         },
     },
 }
+
+url_left = "http://100.72.16.108:5001/"
+url_right = "http://100.72.16.108:5000/"
 
 
 class PiperTeleopController(HardwareTeleopController):
@@ -145,7 +149,10 @@ class PiperTeleopController(HardwareTeleopController):
         self.arm_controllers: Dict[str, PiperInterface] = {}
         for arm_name, can_port in self.can_ports.items():
             print(f"Setting up Piper {arm_name} on CAN port: {can_port}")
-            arm = PiperInterface(can_port=can_port, dt=self.dt)
+            if arm_name == "right_arm":
+                arm = PiperInterface(can_port=can_port, url=url_right, dt=self.dt)
+            elif arm_name == "left_arm":
+                arm = PiperInterface(can_port=can_port, url=url_left, dt=self.dt)
             self.arm_controllers[arm_name] = arm
 
         print("Going to home position...")

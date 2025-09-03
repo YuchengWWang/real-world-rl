@@ -13,7 +13,6 @@ import numpy as np
 from xrobotoolkit_teleop.utils.path_utils import ASSET_PATH
 
 
-url = "http://100.72.16.108:5001/"
 k1 = 4.
 k2 = 0.87
 
@@ -32,12 +31,13 @@ class PiperInterface:
     def __init__(
         self,
         can_port: str = "can_right",
+        url: str = "http://100.72.16.108:5001/",
         dt: float = 0.01,
     ):
         self.dt = dt
-
         self.arm = C_PiperInterface_V2(can_port)
         self.arm.ConnectPort()
+        self.url = url
 
 
     def go_home(self) -> bool:
@@ -98,7 +98,7 @@ class PiperInterface:
         tau_comp = np.array([0., 0., 0., 0., 0., 0.])
 
         if g_comp:
-            ps = requests.post(url + "getcompensate").json()
+            ps = requests.post(self.url + "getcompensate").json()
             tau_comp = np.array(ps["tau_comp"])
             # print(tau_comp)
 
