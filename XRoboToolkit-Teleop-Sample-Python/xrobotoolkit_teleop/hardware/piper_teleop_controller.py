@@ -137,7 +137,7 @@ class PiperTeleopController(HardwareTeleopController):
         self.placo_arm_joint_slice: Dict[str, slice] = {}
         for arm_name, config in self.manipulator_config.items(): # 重命名左右臂（加上左右区分），取出关节名称索引
             ee_link_name = config["link_name"]
-            arm_prefix = ee_link_name.replace("gripper_base", "")
+            arm_prefix = ee_link_name.replace("eeflink", "")
             arm_joint_names = [f"{arm_prefix}joint{i}" for i in range(1, 7)]
             self.placo_arm_joint_slice[arm_name] = slice(
                 self.placo_robot.get_joint_offset(arm_joint_names[0]),

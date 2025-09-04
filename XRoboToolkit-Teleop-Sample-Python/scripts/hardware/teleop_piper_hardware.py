@@ -1,17 +1,17 @@
 import tyro
 from xrobotoolkit_teleop.hardware.piper_teleop_controller import (
-    DEFAULT_PIPER_MANIPULATOR_CONFIG,
-    DEFAULT_PIPER_URDF_PATH,
+    DEFAULT_DUAL_PIPER_MANIPULATOR_CONFIG,
+    DEFAULT_DUAL_PIPER_URDF_PATH,
     PiperTeleopController
 )
 
 
 def main(
-    robot_urdf_path: str = DEFAULT_PIPER_URDF_PATH,
+    robot_urdf_path: str = DEFAULT_DUAL_PIPER_URDF_PATH,
     scale_factor: float = 1.5,
     enable_camera: bool = False,
     enable_log_data: bool = False,
-    visualize_placo: bool = True,
+    visualize_placo: bool = False,
     control_rate_hz: int = 30,
     log_dir: str = "logs/piper",
     enable_camera_compression: bool = True,
@@ -23,7 +23,7 @@ def main(
     """
     controller = PiperTeleopController(
         robot_urdf_path=robot_urdf_path,
-        manipulator_config=DEFAULT_PIPER_MANIPULATOR_CONFIG,
+        manipulator_config=DEFAULT_DUAL_PIPER_MANIPULATOR_CONFIG,
         scale_factor=scale_factor,
         enable_camera=enable_camera,
         enable_log_data=enable_log_data,

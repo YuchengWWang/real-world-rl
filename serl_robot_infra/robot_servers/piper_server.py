@@ -18,7 +18,7 @@ flags.DEFINE_string("flask_url",
     "100.72.16.108",
     "URL for the flask server to run on."
 )
-flags.DEFINE_int("port", 
+flags.DEFINE_integer("port", 
     "5001",
     ""
 )
@@ -83,7 +83,7 @@ class DynamicModel:
         
         pos = self.data.oMf[self.ee_frame_id].translation
         rpy = R.from_matrix(self.data.oMf[self.ee_frame_id].rotation).as_euler('xyz')
-        pose = np.concat([pos, rpy])
+        pose = np.concatenate([pos, rpy])
         # T_base_ee = self.data.oMf[self.ee_frame_id].homogeneous
         
         J = pin.computeFrameJacobian(self.model, self.data, q, self.ee_frame_id, reference_frame=pin.ReferenceFrame.LOCAL_WORLD_ALIGNED)
@@ -241,7 +241,7 @@ class piper_server:
         self.curr_vel = self.curr_J @ self.curr_joint_dq
         gripper_msg = self.piper.GetArmGripperMsgs()
         gripper_msg = gripper_msg.__dict__
-        self.curr_gripper_pos = np.clip(np.array(gripper_msg["gripper_state"].grippers_angle, dtype=float) / 789600, min=0)
+        self.curr_gripper_pos = np.clip(np.array(gripper_msg["gripper_state"].grippers_angle, dtype=float) / 789600, a_min=0, a_max=1)
 
     def set_curr_pose_error(self, pose_desire):
         self.curr_pose_error = self.pino_model.get_e(pose_desire)

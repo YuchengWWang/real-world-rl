@@ -5,6 +5,12 @@ import jax
 import jax.numpy as jnp
 from typing import Dict
 
+import sys, os
+sys.path.append(os.path.abspath(os.path.join(__file__, "..", "..", "..","..","serl_launcher")))
+sys.path.append(os.path.abspath(os.path.join(__file__, "..", "..", "..","..","serl_robot_infra")))
+# print(os.path.abspath(os.path.join(__file__, "..", "..", "..", "..", "serl_robot_infra")))
+
+
 from piper_env.envs.wrappers import (
     DualPicoIntervention,
     MultiCameraBinaryRewardClassifierWrapper,
@@ -20,7 +26,7 @@ from serl_launcher.networks.reward_classifier import load_classifier_func
 from experiments.config import DefaultTrainingConfig
 
 class EnvConfig:
-    SERVER_URL = "http://100.16.72.108:5001/"
+    SERVER_URL = "http://100.72.16.108:5001/"
     REALSENSE_CAMERAS = {}
     IMAGE_CROP = {}
     RESET_POSE = np.array([0.25705429, -0.01145554, 0.35798343, 0, 0, 0])
@@ -58,10 +64,10 @@ class EnvConfig:
     # }
 
 class LeftEnvConfig(EnvConfig):
-    SERVER_URL = "http://100.16.72.108:5000/"
+    SERVER_URL = "http://100.72.16.108:5000/"
     REALSENSE_CAMERAS = {
         "wrist_left": {
-            "serial_number": "128422272758",
+            "serial_number": "130322273438",
             "dim": (1280, 720),
             "exposure": 10000,
         }
@@ -69,24 +75,24 @@ class LeftEnvConfig(EnvConfig):
     DISPLAY_IMAGE = False  # 两个分环境不display只在dualenv里display
 
 class RightEnvConfig(EnvConfig):
-    SERVER_URL = "http://100.16.72.108:5001/"
+    SERVER_URL = "http://100.72.16.108:5001/"
     REALSENSE_CAMERAS = {
         "wrist_right": {
-            "serial_number": "128422272760",
+            "serial_number": "130322270883",
             "dim": (1280, 720),
             "exposure": 10000,
         },
-        "head": {
-            "serial_number": "130322274177",
-            "dim": (1280, 720),
-            "exposure": 10000,
-        }
+        # "head": {
+        #     "serial_number": "13032227177",
+        #     "dim": (1280, 720),
+        #     "exposure": 10000,
+        # }
     }
     DISPLAY_IMAGE = False
 
 class TrainConfig(DefaultTrainingConfig):
-    image_keys = ["left/wrist_left", "right/wrist_right", "right/head"]
-    classifier_keys = ["right/head"] #训练分类器用的camera
+    image_keys = ["left/wrist_left", "right/wrist_right"]
+    classifier_keys = ["right/wrist_right"] #训练分类器用的camera
     proprio_keys = ["left/tcp_pose", "left/tcp_vel", "left/gripper_pose",
                     "right/tcp_pose", "right/tcp_vel", "right/gripper_pose"]
     buffer_period = 1000 # 每buffer_period个transition存一次进pickle file
@@ -127,7 +133,7 @@ class TrainConfig(DefaultTrainingConfig):
             def reward_func(obs):
                 sigmoid = lambda x: 1 / (1 + jnp.exp(-x))
                 p = sigmoid(classifier(obs))
-                return int(p > 0.75 and obs['state'][0, 0] > 0.5)
+                return int(p[0] > 0.75 and obs['state'][0, 0] > 0.5)
 
             env = MultiCameraBinaryRewardClassifierWrapper(env, reward_func)
         

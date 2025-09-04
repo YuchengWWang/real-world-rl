@@ -10,7 +10,7 @@ import time
 from experiments.mappings import CONFIG_MAPPING
 
 FLAGS = flags.FLAGS
-flags.DEFINE_string("exp_name", None, "Name of experiment corresponding to folder.")
+flags.DEFINE_string("exp_name", "fold_napkin", "Name of experiment corresponding to folder.")
 flags.DEFINE_integer("successes_needed", 20, "Number of successful demos to collect.")
 
 def main(_):

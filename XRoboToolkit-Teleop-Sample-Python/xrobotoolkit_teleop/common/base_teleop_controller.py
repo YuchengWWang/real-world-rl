@@ -355,7 +355,7 @@ class BaseTeleopController(abc.ABC):
                 self._send_takeover()
                 xr_pose = self.xr_client.get_pose_by_name(config["pose_source"])
                 delta_xyz, delta_rot = self._process_xr_pose(xr_pose, src_name)
-                self.curr_action[src_name]["pose"] = np.concat([delta_xyz, delta_rot]).tolist()
+                self.curr_action[src_name]["pose"] = np.concatenate([delta_xyz, delta_rot]).tolist()
             else:
                 self._send_automatic()
                 self.curr_action[src_name]["pose"] = [0., 0., 0., 0., 0., 0.]

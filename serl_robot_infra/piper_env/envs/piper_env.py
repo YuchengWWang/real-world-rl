@@ -55,12 +55,12 @@ class PiperEnv(gym.Env):
         self.display_image = config.DISPLAY_IMAGE
         self.gripper_sleep = 1.0
 
-        self.resetpos = np.concatenate(
-            [config.RESET_POSE[:3], euler_2_quat(config.RESET_POSE[3:])]
-        )
+        self.resetpos = config.RESET_POSE
         self._update_currpos()
         self.randomreset = config.RANDOM_RESET
         self.hz = hz
+        self.action_dict_to_send = {"pose": [0., 0., 0., 0., .0, 0.],
+                                    "gripper": [0.],}
 
         self.save_video = save_video
         if self.save_video:
@@ -131,7 +131,7 @@ class PiperEnv(gym.Env):
 
         self.currpose = np.array(ps["pose"])
         self.currvel = np.array(ps["vel"])
-        self.currjacobian = np.reshape(np.array(ps["J"]))
+        self.currjacobian = np.array(ps["J"])
         self.q = np.array(ps["q"])
         self.dq = np.array(ps["dq"])
         self.curr_gripper_pos = np.array(ps["gripper_pos"])
@@ -184,7 +184,7 @@ class PiperEnv(gym.Env):
         )
 
         euler[1] = np.clip(
-            euler[1:], self.rpy_bounding_box.low[1], self.rpy_bounding_box.high[1]
+            euler[1], self.rpy_bounding_box.low[1], self.rpy_bounding_box.high[1]
         )
         pose[3:] = euler
 
@@ -199,18 +199,17 @@ class PiperEnv(gym.Env):
         action = np.clip(action, self.action_space.low, self.action_space.high) # -1, 1
         xyz_delta = action[:3]
 
-        self.nextpos = self.currpos.copy()
+        self.nextpos = self.currpose.copy()
         self.nextpos[:3] = self.nextpos[:3] + xyz_delta * self.action_scale[0]
 
         # GET ORIENTATION FROM ACTION
         self.nextpos[3:] = (
             Rotation.from_euler("xyz", action[3:6] * self.action_scale[1])
-            * Rotation.from_euler(self.currpose[3:])
+            * Rotation.from_euler("xyz", self.currpose[3:])
         ).as_euler('xyz')
 
         gripper_action = action[6] * self.action_scale[2] # 夹爪用绝对位置[-1, 1] -> [0, 0.05]
-        self.action_dict_to_send = {"pose": [0., 0., 0., 0., .0, 0.],
-                                    "gripper": [0.],}
+        
         self._send_gripper_command(gripper_action) # 这里没有真正发送action，只是更新self.action_dict_to_send
         self._send_pos_command(self.clip_safety_box(self.nextpos)) # 这里才调用request请求发送action
 
@@ -329,7 +328,7 @@ class PiperEnv(gym.Env):
                 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
                 
                 for camera_key in self.recording_frames[0].keys():
-                    if self.url == "http://100.16.72.108:5000/":
+                    if self.url == "http://100.72.16.108:5000/":
                         video_path = f'./videos/left_{camera_key}_{timestamp}.mp4'
                     else:
                         video_path = f'./videos/right_{camera_key}_{timestamp}.mp4'

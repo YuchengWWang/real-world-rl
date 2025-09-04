@@ -3,10 +3,11 @@ import time
 from typing import List, Optional, Tuple, Union
 import numpy as np
 import requests
-# import sys
-# sys.path.append(os.path.join(os.path.dirname(__file__), "../../../.."))
+import sys
+print(os.path.join(os.path.dirname(__file__), "../../../.."))
+sys.path.append(os.path.join(os.path.dirname(__file__), "../../../../piper_sdk"))
 
-from piper_sdk.piper_sdk import *
+from piper_sdk import *
 import meshcat.transformations as tf
 import numpy as np
 

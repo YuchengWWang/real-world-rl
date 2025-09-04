@@ -74,9 +74,9 @@ class DualPicoIntervention(gym.ActionWrapper):
         ps_left = requests.post(url_left + "get_pico_action").json()
         ps_right = requests.post(url_right + "get_pico_action").json()
         left_pose = np.array(ps_left["pose"])
-        left_gripper_pos = np.array(ps_left["gripper_pos"])
+        left_gripper_pos = np.array([ps_left["gripper"]])
         right_pose = np.array(ps_right["pose"])
-        right_gripper_pos = np.array(ps_right["gripper_pos"])
+        right_gripper_pos = np.array([ps_right["gripper"]])
         expert_a = np.concatenate((left_pose, left_gripper_pos, right_pose, right_gripper_pos), axis=0) # 14D action
 
         ps = requests.post(url_left + "get_takeover").json()

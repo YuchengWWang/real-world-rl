@@ -58,6 +58,8 @@ if [[ "$1" == "--conda" ]]; then
         . "$HOME/miniconda3/etc/profile.d/conda.sh"
     elif [ -f "$HOME/anaconda3/etc/profile.d/conda.sh" ]; then
         . "$HOME/anaconda3/etc/profile.d/conda.sh"
+    elif [ -f "$HOME/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/miniforge3/etc/profile.d/conda.sh"
     else
         echo "Conda initialization script not found. Please install Miniconda or Anaconda."
         exit 1
@@ -106,14 +108,14 @@ elif [[ "$1" == "--install" ]]; then
     cd XRoboToolkit-PC-Service-Pybind
     bash setup_ubuntu.sh
 
-    cd ..
-    git clone https://github.com/zhigenzhao/R5.git
-    cd R5
-    git checkout dev/python_pkg
-    cd py/ARX_R5_python/
-    uv pip install .
+    # cd ..
+    # git clone https://github.com/zhigenzhao/R5.git
+    # cd R5
+    # git checkout dev/python_pkg
+    # cd py/ARX_R5_python/
+    # uv pip install .
 
-    cd ../../../..
+    cd ../..
 
     uv pip install -e . || { echo "Failed to install xrobotoolkit_teleop with pip"; exit 1; }
 

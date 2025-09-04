@@ -14,8 +14,8 @@ curr_action = {"right_arm": {"pose": [0., 0., 0., 0., .0, 0.],
 
 
 while 1:
-    ps_left = requests.post(url_left + "get_action").json()
-    ps_right = requests.post(url_right + "get_action").json()
+    ps_left = requests.post(url_left + "get_pico_action").json()
+    ps_right = requests.post(url_right + "get_pico_action").json()
     curr_action["right_arm"]["pose"] = ps_right["pose"]
     curr_action["right_arm"]["gripper"] = ps_right["gripper"]
     curr_action["left_arm"]["pose"] = ps_left["pose"]

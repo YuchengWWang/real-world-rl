@@ -7,7 +7,7 @@ def construct_adjoint_matrix(tcp_pose):
     Construct the adjoint matrix for a spatial velocity vector
     :args: tcp_pose: (x, y, z, qx, qy, qz, qw)
     """
-    rotation = R.from_quat(tcp_pose[3:]).as_matrix()
+    rotation = R.from_euler("xyz", tcp_pose[3:]).as_matrix()
     translation = np.array(tcp_pose[:3])
     skew_matrix = np.array(
         [
@@ -28,7 +28,7 @@ def construct_homogeneous_matrix(tcp_pose):
     Construct the homogeneous transformation matrix from given pose.
     args: tcp_pose: (x, y, z, qx, qy, qz, qw)
     """
-    rotation = R.from_quat(tcp_pose[3:]).as_matrix()
+    rotation = R.from_euler("xyz", tcp_pose[3:]).as_matrix()
     translation = np.array(tcp_pose[:3])
     T = np.zeros((4, 4))
     T[:3, :3] = rotation
